@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CP_Boiko.MainPage"
+             xmlns:viewmodels="clr-namespace:CP_Boiko.ViewModels"
+             xmlns:controls="clr-namespace:CP_Boiko.Controls">
+
+    <ContentPage.BindingContext>
+        <viewmodels:MainViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <Style x:Key="TitleStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="TextColor" Value="White" />
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="MediumPurple" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="Padding" Value="20,12" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+
+        <Style x:Key="StyledEntry" TargetType="Entry">
+            <Setter Property="BackgroundColor" Value="#2a2a2a" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="PlaceholderColor" Value="Gray" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="20">
+
+            <Label Text="Лабораторна робота №1"
+                   Style="{StaticResource TitleStyle}" />
+
+            <Frame BackgroundColor="#1e1e2e"
+                   CornerRadius="12"
+                   Padding="16"
+                   BorderColor="MediumPurple">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Поточний час:"
+                           TextColor="Gray"
+                           FontSize="14" />
+                    <Label Text="{Binding CurrentDateTime}"
+                           FontSize="18"
+                           TextColor="LightBlue"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Button Text="🕐 Оновити час"
+                    Command="{Binding UpdateTimeCommand}"
+                    Style="{StaticResource PrimaryButton}" />
+
+            <Label Text="Введіть повідомлення:"
+                   TextColor="Gray"
+                   FontSize="14" />
+
+            <Entry Placeholder="Введіть текст тут..."
+                   Text="{Binding UserInput}"
+                   Style="{StaticResource StyledEntry}" />
+
+            <Frame BackgroundColor="#1e2e1e"
+                   CornerRadius="8"
+                   Padding="12"
+                   BorderColor="LightGreen"
+                   IsVisible="{Binding HasInput}">
+                <Label Text="{Binding UserInput, StringFormat='✅ Ви ввели: {0}'}"
+                       FontSize="16"
+                       TextColor="LightGreen" />
+            </Frame>
+
+            <Label Text="Користувацький елемент керування:"
+                   TextColor="Gray"
+                   FontSize="14" />
+
+            <controls:BorderedEntry
+                Placeholder="BorderedEntry контрол..."
+                BorderColor="Cyan"
+                CornerRadius="12"
+                BackgroundColor="#1a1a2e"
+                TextColor="White"
+                PlaceholderColor="Gray" />
+
+            <Label Text="Інформація про пристрій:"
+                   TextColor="Gray"
+                   FontSize="14" />
+
+            <Frame BackgroundColor="#1e1e2e"
+                   CornerRadius="12"
+                   Padding="16"
+                   BorderColor="Orange">
+                <Label Text="{Binding DeviceDetails}"
+                       FontSize="14"
+                       TextColor="Orange"
+                       LineBreakMode="WordWrap" />
+            </Frame>
+
+            <Label Text="RESTful API + SQLite:"
+                   TextColor="Gray"
+                   FontSize="14" />
+
+            <Button Text="📡 Отримати дані з API"
+                    Command="{Binding FetchApiCommand}"
+                    Style="{StaticResource PrimaryButton}"
+                    BackgroundColor="DarkCyan" />
+
+            <Frame BackgroundColor="#1e1e2e"
+                   CornerRadius="12"
+                   Padding="16"
+                   BorderColor="Cyan"
+                   IsVisible="{Binding HasApiResult}">
+                <Label Text="{Binding ApiResult}"
+                       FontSize="14"
+                       TextColor="Cyan"
+                       LineBreakMode="WordWrap" />
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
